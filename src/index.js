@@ -1,12 +1,17 @@
 import _ from 'lodash';
+import playerInfo from './init';
+import gameInfo from './game';
 
-function component() {
-  const element = document.createElement('div');
+const CotaApp = () => {
+  let data = {
+    playerData: [],
+    gameData: []
+  };
 
-  // Lodash, currently included via a script, is required for this line to work
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+  return Object.assign(data, playerInfo(data), gameInfo(data));
+};
 
-  return element;
-}
+window.Cota = CotaApp();
 
-document.body.appendChild(component());
+Cota.getPlayers();
+Cota.getGames();
