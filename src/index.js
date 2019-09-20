@@ -1,17 +1,17 @@
-import _ from 'lodash';
-import playerInfo from './init';
-import gameInfo from './game';
+import getAllPlayers from './playerInfo';
+// import gameInfo from './gameInfo';
 
-const CotaApp = () => {
-  let data = {
-    playerData: [],
-    gameData: []
-  };
+// const Cota = () => {
+//   let data = {
+//     playerData: [],
+//     gameData: []
+//   };
 
-  return Object.assign(data, playerInfo(data), gameInfo(data));
-};
+//   return Object.assign(data, gameInfo(data));
+// };
 
-window.Cota = CotaApp();
+// window.CotaApp = Cota();
 
-Cota.getPlayers();
-Cota.getGames();
+// init code
+getAllPlayers();
+// CotaApp.getGames();
