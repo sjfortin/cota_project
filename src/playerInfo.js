@@ -1,33 +1,28 @@
-const playerInfo = {
-  currentPage: 1,
-  playerData: [],
-  limitPerPage: 100,
-  numberOfPlayersPerPage: 10,
-  apiUrl: 'https://www.balldontlie.io/api/v1/players',
+const PlayerInfo = {
   async getPlayers(currentPage) {
-    let actualUrl = this.apiUrl + `?page=${this.currentPage}&per_page=${this.limitPerPage}`;
+    let actualUrl = this.settings.apiUrl + `?page=${this.settings.currentPage}&per_page=${this.settings.limitPerPage}`;
 
-    var apiResults = await fetch(actualUrl).then(resp => {
+    let apiResults = await fetch(actualUrl).then(resp => {
       return resp.json();
     });
 
     return apiResults;
   },
   async getAllPlayers() {
-    if (this.currentPage >= 10) {
+    if (this.settings.currentPage >= 10) {
       return;
     }
-    const results = await this.getPlayers(this.currentPage);
+    const results = await this.getPlayers(this.settings.currentPage);
 
-    this.playerData = this.playerData.concat(results.data);
+    this.state.playerData = this.state.playerData.concat(results.data);
 
-    console.log(this.playerData);
+    console.log(this.state.playerData);
 
-    if (this.currentPage === 1) {
+    if (this.settings.currentPage === 1) {
       this.renderPlayers(results.data);
     }
 
-    this.currentPage++;
+    this.settings.currentPage++;
 
     this.getAllPlayers();
   },
@@ -39,27 +34,14 @@ const playerInfo = {
       playersContainer.removeChild(playersContainer.firstChild);
     }
 
-    for (let i = 0; i < this.numberOfPlayersPerPage; i++) {
+    for (let i = 0; i < this.settings.numberOfPlayersPerPage; i++) {
       let player = players[i];
       let playerUI = document.createElement('div');
       playerUI.innerHTML = `${player.first_name} ${player.last_name}`;
       playerUI.style.cssText = 'color: slate; border: 1px solid lightgray; padding: 5px; margin: 5px 0';
       playersContainer.append(playerUI);
     }
-
-    // players.forEach(player => {
-    //   let playerUI = document.createElement('div');
-    //   playerUI.innerHTML = `${player.first_name} ${player.last_name}`;
-    //   playerUI.style.cssText = 'color: slate; border: 1px solid lightgray; padding: 5px; margin: 5px 0';
-    //   playersContainer.append(playerUI);
-    // });
-  },
-  sortPlayersAsc(players) {
-    return players.sort((a, b) => (a.last_name > b.last_name ? 1 : -1));
-  },
-  sortPlayersDesc(players) {
-    return players.sort((a, b) => (a.last_name > b.last_name ? -1 : 1));
   }
 };
 
-export default playerInfo;
+export default PlayerInfo;
