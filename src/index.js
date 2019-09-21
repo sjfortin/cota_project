@@ -1,17 +1,10 @@
-import getAllPlayers from './playerInfo';
+import playerInfo from './playerInfo';
 // import gameInfo from './gameInfo';
 
-// const Cota = () => {
-//   let data = {
-//     playerData: [],
-//     gameData: []
-//   };
+window.CotaApp = Object.create(playerInfo);
 
-//   return Object.assign(data, gameInfo(data));
-// };
-
-// window.CotaApp = Cota();
+CotaApp.version = '1.0.0';
 
 // init code
-getAllPlayers();
+CotaApp.getAllPlayers();
 // CotaApp.getGames();
