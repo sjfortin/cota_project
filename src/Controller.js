@@ -1,5 +1,7 @@
 import PlayerInfo from './PlayerInfo';
+import PlayerInfoPromise from './PlayerInfoPromise';
 import Sorter from './Sorter';
+import State from './State';
 
 const settings = {
   currentPage: 1,
@@ -8,17 +10,12 @@ const settings = {
   apiUrl: 'https://www.balldontlie.io/api/v1/players'
 };
 
-const state = {
-  playerData: [],
-  gameData: []
-};
+const Controller = Object.create(PlayerInfoPromise);
 
-const Controller = Object.create(PlayerInfo);
-
-Controller.sorter = Object.create(Sorter);
+Controller.sorter = Sorter;
 
 Controller.settings = settings;
 
-Controller.state = state;
+Controller.state = State;
 
 export default Controller;
