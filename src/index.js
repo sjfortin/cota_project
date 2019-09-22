@@ -6,3 +6,4 @@ CotaApp.version = '1.0.0';
 
 // init code
 CotaApp.getAllPlayers();
+CotaApp.bindEvents();

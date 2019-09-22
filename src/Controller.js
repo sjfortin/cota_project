@@ -1,21 +1,11 @@
-import PlayerInfo from './PlayerInfo';
-import PlayerInfoPromise from './PlayerInfoPromise';
+import PlayerInfo from './PlayerInfoPromise';
+import Settings from './Settings';
 import Sorter from './Sorter';
 import State from './State';
+import EventListeners from './EventListeners';
 
-const settings = {
-  currentPage: 1,
-  limitPerPage: 100,
-  numberOfPlayersPerPage: 10,
-  apiUrl: 'https://www.balldontlie.io/api/v1/players'
-};
+let Controller = Object.create(null);
 
-const Controller = Object.create(PlayerInfoPromise);
-
-Controller.sorter = Sorter;
-
-Controller.settings = settings;
-
-Controller.state = State;
+Controller = { ...Controller, ...PlayerInfo, ...Sorter, ...Settings, ...State, ...EventListeners };
 
 export default Controller;

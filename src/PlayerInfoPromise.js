@@ -1,30 +1,33 @@
 const PlayerInfo = {
   getPlayers(currentPage) {
-    let playersUrl = this.settings.apiUrl + `?page=${this.settings.currentPage}&per_page=${this.settings.limitPerPage}`;
+    let playersUrl = this.apiUrl + `?page=${this.currentPage}&per_page=${this.limitPerPage}`;
 
     return fetch(playersUrl).then(resp => {
       return resp.json();
     });
   },
   getAllPlayers() {
-    if (this.settings.currentPage >= 10) {
+    if (this.currentPage >= 10) {
       return;
     }
 
-    this.getPlayers(this.settings.currentPage).then(response => {
-      this.state.playerData = this.state.playerData.concat(response.data);
+    this.getPlayers(this.currentPage).then(response => {
+      this.playerData = this.playerData.concat(response.data);
 
-      console.log(this.state.playerData);
+      console.log(this.playerData);
 
-      if (this.settings.currentPage === 1) {
+      if (this.currentPage === 1) {
         this.renderPlayers(response.data);
       }
 
-      this.settings.currentPage++;
+      this.currentPage++;
       this.getAllPlayers();
     });
   },
   renderPlayers(players) {
+    let numOfPlayersToRender =
+      players.length < this.numberOfPlayersPerPage ? players.length : this.numberOfPlayersPerPage;
+
     const playersContainer = document.querySelector('.players');
 
     // need to empty out the player container
@@ -32,7 +35,7 @@ const PlayerInfo = {
       playersContainer.removeChild(playersContainer.firstChild);
     }
 
-    for (let i = 0; i < this.settings.numberOfPlayersPerPage; i++) {
+    for (let i = 0; i < numOfPlayersToRender; i++) {
       let player = players[i];
       let playerUI = document.createElement('div');
       playerUI.innerHTML = `${player.first_name} ${player.last_name}`;
