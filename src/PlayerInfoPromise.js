@@ -13,14 +13,14 @@ const PlayerInfo = {
     }
 
     this.getPlayers(this.pageToGet).then(response => {
-      this.playerData = this.playerData.concat(response.data);
-
+      
       if (this.pageToGet === 1) {
         this.playerMetaData = response.meta;
         this.renderPlayers(response.data);
         console.log(this.generatePageRange(this.playerMetaData.current_page, this.playerMetaData.total_pages));
       }
-
+      
+      this.playerData = this.playerData.concat(response.data);
       this.pageToGet++;
       this.getAllPlayers();
     });
