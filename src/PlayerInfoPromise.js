@@ -1,26 +1,27 @@
 const PlayerInfo = {
+  pageToGet: 1,
   getPlayers(currentPage) {
-    let playersUrl = this.apiUrl + `?page=${this.currentPage}&per_page=${this.limitPerPage}`;
+    let playersUrl = this.apiUrl + `?page=${currentPage}&per_page=${this.limitPerPage}`;
 
     return fetch(playersUrl).then(resp => {
       return resp.json();
     });
   },
   getAllPlayers() {
-    if (this.currentPage >= 10) {
+    if (this.playerMetaData && this.pageToGet > this.playerMetaData.total_pages) {
       return;
     }
 
-    this.getPlayers(this.currentPage).then(response => {
+    this.getPlayers(this.pageToGet).then(response => {
       this.playerData = this.playerData.concat(response.data);
 
-      console.log(this.playerData);
-
-      if (this.currentPage === 1) {
+      if (this.pageToGet === 1) {
+        this.playerMetaData = response.meta;
         this.renderPlayers(response.data);
+        console.log(this.generatePageRange(this.playerMetaData.current_page, this.playerMetaData.total_pages));
       }
 
-      this.currentPage++;
+      this.pageToGet++;
       this.getAllPlayers();
     });
   },
