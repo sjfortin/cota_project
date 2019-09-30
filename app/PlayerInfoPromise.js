@@ -1,33 +1,39 @@
+import CotaData from './CotaData';
+import Pagination from './Pagination';
+
 const PlayerInfo = {
   pageToGet: 1,
   getPlayers(currentPage) {
-    let playersUrl = this.apiUrl + `?page=${currentPage}&per_page=${this.limitPerPage}`;
+    let playersUrl = CotaData.apiUrl + `?page=${currentPage}&per_page=${CotaData.limitPerPage}`;
 
     return fetch(playersUrl).then(resp => {
       return resp.json();
     });
   },
   getAllPlayers() {
-    if (this.playerMetaData && this.pageToGet > this.playerMetaData.total_pages) {
+    if (CotaData.playerMetaData && this.pageToGet > CotaData.playerMetaData.total_pages) {
       return;
     }
 
     this.getPlayers(this.pageToGet).then(response => {
-      
       if (this.pageToGet === 1) {
-        this.playerMetaData = response.meta;
+        CotaData.playerMetaData = response.meta;
         this.renderPlayers(response.data);
-        console.log(this.generatePageRange(this.playerMetaData.current_page, this.playerMetaData.total_pages));
+        CotaData.pageRange = Pagination.generatePageRange(
+          CotaData.playerMetaData.current_page,
+          CotaData.playerMetaData.total_pages
+        );
+        Pagination.renderPagination();
       }
-      
-      this.playerData = this.playerData.concat(response.data);
+
+      CotaData.playerData = CotaData.playerData.concat(response.data);
       this.pageToGet++;
       this.getAllPlayers();
     });
   },
   renderPlayers(players) {
     let numOfPlayersToRender =
-      players.length < this.numberOfPlayersPerPage ? players.length : this.numberOfPlayersPerPage;
+      players.length < CotaData.numberOfPlayersPerPage ? players.length : CotaData.numberOfPlayersPerPage;
 
     const playersContainer = document.querySelector('.players');
 

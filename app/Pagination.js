@@ -1,6 +1,8 @@
+import CotaData from './CotaData';
+
 const Pagination = {
   generatePageRange(currentPage, lastPage) {
-    const delta = 3;
+    const delta = 2;
 
     const range = [];
 
@@ -25,10 +27,17 @@ const Pagination = {
     return range;
   },
   getPlayersToRenderByPage(page) {
-    const newPlayerDataSet = [...this.playerData];
+    const newPlayerDataSet = [...CotaData.playerData];
     const startPlayersAt = (page - 1) * 10;
 
     return newPlayerDataSet.slice(startPlayersAt, startPlayersAt + 10);
+  },
+  renderPagination() {
+    let pageRange = `<ul style="list-style-type: none; margin: 0; padding: 0; display: flex; justify-content: center;">
+        ${CotaData.pageRange.map(item => `<li><button data-page=${item}>${item}</button></li>`).join('')}
+      </ul>`;
+
+    document.getElementById('pagination').innerHTML = pageRange;
   }
 };
 

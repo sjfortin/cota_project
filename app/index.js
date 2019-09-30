@@ -1,6 +1,6 @@
-import Controller from './Controller';
+import CotaComponent from './CotaComponent';
 
-window.CotaApp = Object.create(Controller);
+window.CotaApp = Object.create(CotaComponent);
 
 CotaApp.version = '1.0.0';
 
