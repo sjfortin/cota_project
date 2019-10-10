@@ -1,6 +1,6 @@
 import Sorter from './Sorter';
 import CotaData from './CotaData';
-import PlayerInfo from './PlayerInfoPromise';
+import PlayerInfo from './PlayerInfo';
 import Pagination from './Pagination';
 
 const EventListeners = {
@@ -26,11 +26,8 @@ const EventListeners = {
     });
 
     pagination.addEventListener('click', event => {
-      console.log(event); // TODO: work on event delegation for the pagination
-      if (event.target !== false) {
-        return
-      }
-      PlayerInfo.renderPlayers(Pagination.getPlayersToRenderByPage(event.target.dataset.page));
+      console.log(event.target.dataset.page); // TODO: work on event delegation for the pagination
+      PlayerInfo.getPlayers(event.target.dataset.page);
     });
   }
 };

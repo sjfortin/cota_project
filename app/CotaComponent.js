@@ -1,4 +1,4 @@
-import PlayerInfo from './PlayerInfoPromise';
+import PlayerInfo from './PlayerInfo';
 import Settings from './Settings';
 import Sorter from './Sorter';
 import CotaData from './CotaData';
@@ -12,7 +12,7 @@ const CotaComponent = {
   eventListeners: EventListeners,
   pagination: Pagination,
   start() {
-    this.playerInfo.getAllPlayers();
+    this.playerInfo.getPlayers(1);
     this.eventListeners.bindEvents();
   }
 };

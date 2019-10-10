@@ -6,6 +6,7 @@ const Pagination = {
 
     const range = [];
 
+    // TODO: Need to fix the number of pages coming back to the generation here
     for (let i = Math.max(2, currentPage - delta); i <= Math.min(lastPage - 1, currentPage + delta); i += 1) {
       range.push(i);
     }
@@ -32,12 +33,12 @@ const Pagination = {
 
     return newPlayerDataSet.slice(startPlayersAt, startPlayersAt + 10);
   },
-  renderPagination() {
-    let pageRange = `<ul style="list-style-type: none; margin: 0; padding: 0; display: flex; justify-content: center;">
-        ${CotaData.pageRange.map(item => `<li><button data-page=${item}>${item}</button></li>`).join('')}
+  renderPagination(pageRange) {
+    let pageRangeForDisplay = `<ul style="list-style-type: none; margin: 0; padding: 0; display: flex; justify-content: center;">
+        ${pageRange.map(item => `<li><button data-page=${item}>${item}</button></li>`).join('')}
       </ul>`;
 
-    document.getElementById('pagination').innerHTML = pageRange;
+    document.getElementById('pagination').innerHTML = pageRangeForDisplay;
   }
 };
 

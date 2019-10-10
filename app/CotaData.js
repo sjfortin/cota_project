@@ -1,5 +1,5 @@
 const CotaData = {
-  limitPerPage: 100,
+  limitPerPage: 20,
   numberOfPlayersPerPage: 10,
   apiUrl: 'https://www.balldontlie.io/api/v1/players',
   playerMetaData: null,
