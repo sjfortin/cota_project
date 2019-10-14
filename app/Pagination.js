@@ -27,13 +27,8 @@ const Pagination = {
 
     return range;
   },
-  getPlayersToRenderByPage(page) {
-    const newPlayerDataSet = [...CotaData.playerData];
-    const startPlayersAt = (page - 1) * 10;
-
-    return newPlayerDataSet.slice(startPlayersAt, startPlayersAt + 10);
-  },
   renderPagination(pageRange) {
+    // TODO: need to remove the data page from non page buttons. e.g the ellipses...
     let pageRangeForDisplay = `<ul style="list-style-type: none; margin: 0; padding: 0; display: flex; justify-content: center;">
         ${pageRange.map(item => `<li><button data-page=${item}>${item}</button></li>`).join('')}
       </ul>`;

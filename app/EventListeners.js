@@ -26,8 +26,10 @@ const EventListeners = {
     });
 
     pagination.addEventListener('click', event => {
-      console.log(event.target.dataset.page); // TODO: work on event delegation for the pagination
-      PlayerInfo.getPlayers(event.target.dataset.page);
+      if (event.target && event.target.dataset.page) {
+        let pageClicked = parseInt(event.target.dataset.page);
+        PlayerInfo.getPlayers(pageClicked);
+      }
     });
   }
 };
